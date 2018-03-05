@@ -1,4 +1,4 @@
-from flask import Flask, request, Response, send_from_directory
+from flask import Flask, request, Response, send_from_directory, render_template
 import jsonpickle
 import numpy as np
 import cv2
@@ -66,6 +66,11 @@ def send_js(path):
 @app.route('/api/hello')
 def hello():
     return Response('hello')
+
+
+@app.route('/web')
+def render_html():
+    return render_template('index.html')
 
 
 # start flask app
