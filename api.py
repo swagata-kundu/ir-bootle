@@ -37,15 +37,16 @@ def test():
     return Response(response=response_pickled, status=200, mimetype="application/json")
 
 
-@app.route('/match/<path:path>')
-def send_js(path):
-    return send_from_directory('ref_image', path)
-
-
 @app.route('/api/image/recog', methods=['POST'])
 def test2():
     r = request
     # convert string of image data to uint8
+
+    content_type = r.content_type
+
+    if not content_type or not r.data or 'image' not in content_type:
+        return Response(status=400)
+
     nparr = np.fromstring(r.data, np.uint8)
     # decode image
     img = cv2.imdecode(nparr, 0)
@@ -55,6 +56,16 @@ def test2():
     response_pickled = jsonpickle.encode(match_result)
 
     return Response(response=response_pickled, status=200, mimetype="application/json")
+
+
+@app.route('/match/<path:path>')
+def send_js(path):
+    return send_from_directory('ref_image', path)
+
+
+@app.route('/api/hello')
+def hello():
+    return Response('hello')
 
 
 # start flask app
