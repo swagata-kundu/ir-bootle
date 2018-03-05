@@ -3,12 +3,14 @@ import jsonpickle
 import numpy as np
 import cv2
 import io
+from flask_cors import CORS
 
 from match import Match
 
 # Initialize the Flask application
 app = Flask(__name__, static_url_path='')
 
+CORS(app)
 
 match = Match()
 

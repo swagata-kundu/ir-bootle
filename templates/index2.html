@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+
+<body>
+    <video id="player" controls autoplay></video>
+
+
+</body>
+<script>
+    (function () {
+
+        const player = document.getElementById('player');
+
+        const constraints = {
+            video: true,
+        };
+
+        navigator.mediaDevices.getUserMedia(constraints)
+            .then((stream) => {
+                player.srcObject = stream;
+            }).catch(err => {
+                alert(JSON.stringify(err));
+            })
+    })();
+</script>
+
+</html>
