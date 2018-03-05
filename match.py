@@ -1,6 +1,7 @@
 import cv2
 import glob
 from operator import itemgetter
+import os
 
 FLANN_INDEX_KDTREE = 0
 
@@ -61,7 +62,7 @@ class Match:
             obj['file_name'] = ref_image['file_name']
             obj['score'] = len(good)
 
-            if len(good) > 10:
+            if len(good) > 8:
                 results.append(obj)
 
         sorted_result = sorted(results, key=itemgetter('score'), reverse=True)
@@ -72,6 +73,7 @@ class Match:
 
         if len(sorted_result) > 0:
             match_result['found'] = True
-            match_result['file'] = sorted_result[0]['file_name'].split("\\")[1]
+            match_result['file'] = os.path.basename(
+                sorted_result[0]['file_name'])
 
         return match_result

@@ -2,7 +2,7 @@ from flask import Flask, request, Response, send_from_directory, render_template
 import jsonpickle
 import numpy as np
 import cv2
-
+import io
 
 from match import Match
 
@@ -42,12 +42,16 @@ def test2():
     r = request
     # convert string of image data to uint8
 
-    content_type = r.content_type
+    # content_type = r.content_type
 
-    if not content_type or not r.data or 'image' not in content_type:
-        return Response(status=400)
+    # if not content_type or not r.data or 'image' not in content_type:
+    #     return Response(status=400)
 
-    nparr = np.fromstring(r.data, np.uint8)
+    photo = r.files['photo']
+    in_memory_file = io.BytesIO()
+    photo.save(in_memory_file)
+
+    nparr = np.fromstring(in_memory_file.getvalue(), np.uint8)
     # decode image
     img = cv2.imdecode(nparr, 0)
 
@@ -61,6 +65,11 @@ def test2():
 @app.route('/match/<path:path>')
 def send_js(path):
     return send_from_directory('ref_image', path)
+
+
+@app.route('/tenplate/<path:path>')
+def send_js_1(path):
+    return send_from_directory('templates', path)
 
 
 @app.route('/api/hello')
