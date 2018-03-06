@@ -1,27 +1,16 @@
 <!DOCTYPE html>
 <html>
+<script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+    crossorigin="anonymous"></script>
+<script src="/tenplate/capture.js"></script>
+<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 
 <body>
-    <video id="player" controls autoplay></video>
+    <video style="border-color: coral" id="player" autoplay></video>
+
+    <img id="screenshot-img" crossOrigin="Anonymous" />
 
 
 </body>
-<script>
-    (function () {
-
-        const player = document.getElementById('player');
-
-        const constraints = {
-            video: true,
-        };
-
-        navigator.mediaDevices.getUserMedia(constraints)
-            .then((stream) => {
-                player.srcObject = stream;
-            }).catch(err => {
-                alert(JSON.stringify(err));
-            })
-    })();
-</script>
 
 </html>

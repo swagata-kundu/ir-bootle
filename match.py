@@ -34,17 +34,21 @@ class Match:
 
     def match_image(self, image_to_find):
 
-        image_to_find_resized_scaled = cv2.resize(
-            image_to_find, (0, 0), fx=0.5, fy=0.5)
+        # cv2.imshow('image', image_to_find)
+        # cv2.waitKey(0)
+        # cv2.destroyAllWindows()
 
-        newx, newy = image_to_find_resized_scaled.shape[1] / \
-            4, image_to_find_resized_scaled.shape[0]/4
+        # image_to_find_resized_scaled = cv2.resize(
+        #     image_to_find, (0, 0), fx=0.5, fy=0.5)
 
-        image_to_find_resized_final = cv2.resize(
-            image_to_find_resized_scaled, (newx, newy), fx=0.5, fy=0.5)
+        # newx, newy = image_to_find_resized_scaled.shape[1] / \
+        #     2, image_to_find_resized_scaled.shape[0]/2
+
+        # image_to_find_resized_final = cv2.resize(
+        #     image_to_find_resized_scaled, (newx, newy), fx=0.5, fy=0.5)
 
         kp2, image_to_find_resized_final_desc = self.sift.detectAndCompute(
-            image_to_find_resized_final, None)
+            image_to_find, None)
 
         results = []
 
