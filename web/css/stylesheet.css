@@ -171,28 +171,38 @@ p.txt_scan {
     height: 100%;
 }
 
-.video-container .cameraOverlay {
-    background: url(../images/camera_overlay.png) no-repeat center;
-    content: '';
+.video-container .cameraOverlay,
+.video-container .loader {
     position: absolute;
     top: 0;
     bottom: 0;
     right: 0;
     left: 0;
-    z-index: 999;
-    background-size: 100%;
+    z-index: 100;
     display: flex;
     align-items: center;
     justify-content: center;
 }
 
+.video-container .cameraOverlay {
+    background: url(../images/camera_overlay.png) no-repeat center;
+    background-size: 100%;
+}
+
 .video-container .cameraOverlay img {
-    max-width: 160px;
+    max-width: 200px;
 }
 
 .video-container .loader {
     background: rgba(0, 0, 0, 0.7) url(../images/sprite_loader.gif) no-repeat center;
     background-size: 150px;
+    background-size: 200px;
+    display: none;
+    z-index: 101;
+}
+
+.video-container .loader.show {
+    display: flex !important;
 }
 
 html.openModal {

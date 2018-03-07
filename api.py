@@ -96,4 +96,6 @@ def process_video():
     # start flask app
 app.config['UPLOAD_FOLDER'] = 'uploads'
 
-app.run(host="0.0.0.0", port=5000, ssl_context=('cert.pem', 'key.pem'))
+#app.run(host="0.0.0.0", port=5000, ssl_context=('cert.pem', 'key.pem'))
+
+app.run(host="0.0.0.0", port=5000)

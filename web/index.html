@@ -7,9 +7,7 @@
   <title>Sprite</title>
   <meta name="description" content="Overview" />
   <meta name="viewport" content="width=device-width, height=device-height, initial-scale=1.0, user-scalable=0, minimum-scale=1.0, maximum-scale=1.0">
-  <!--[if lt IE 9]>
-      <script src="js/html5shiv.js"></script>
-    <![endif]-->
+
   <link rel="stylesheet" href="css/bootstrap.min.css" type="text/css" />
   <link rel="stylesheet" href="css/stylesheet.css" type="text/css" />
 </head>
@@ -40,7 +38,8 @@
     </div>
   </div>
   <div class="video-container" id="cameraPlayer">
-    <video style="border-color: coral" id="player" autoplay></video>
+    <video style="border-color: coral" id="player" autoplay playsinline></video>
+    <div class="loader"></div>
     <div class="cameraOverlay">
       <img src="" id="success-animation" alt="" />
     </div>
@@ -52,6 +51,7 @@
 
   <script src="js/jquery-1.12.3.min.js" type="text/javascript"></script>
   <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+  <script src="https://webrtc.github.io/adapter/adapter-latest.js"></script>
   <script src="js/custom.js"></script>
 </body>
 

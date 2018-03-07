@@ -11,33 +11,37 @@ function closeCamera(id) {
 $(document).ready(function () {
 
     const img = document.querySelector('#screenshot-img');
-    const video = document.querySelector('#player');
     const button = document.querySelector('#capture');
     const canvas = document.createElement('canvas');
+    const player = document.getElementById('player');
 
     button.onclick = function () {
-        canvas.width = video.videoWidth;
-        canvas.height = video.videoHeight;
-        canvas.getContext('2d').drawImage(video, 0, 0);
+        canvas.width = player.videoWidth;
+        canvas.height = player.videoHeight;
+        canvas.getContext('2d').drawImage(player, 0, 0);
         let src = canvas.toDataURL('image/jpeg');
         blob = dataURItoBlob(src);
         const data = new FormData();
         data.append('photo', blob);
-        $('.cameraOverlay').addClass('loader');
-        axios.post('/api/image/recog', data).then(function (data) {
-            debugger
-            $('.cameraOverlay').removeClass('loader');
-            $('#success-animation').attr('src', 'images/gf_24.gif')
+        $('.loader').addClass('show');
+        axios.post('/api/image/recog', data).then(function (response) {
+            $('.loader').removeClass('show');
+            let data = response.data;
+            if (data.found) {
+                $('#success-animation').attr('src', 'images/sprite_24.gif')
+                setTimeout(function () {
+                    window.location.assign('https://www.sprite.com')
+                }, 15000)
+            } else {
+                alert('Can not recognize the image. Please try again')
+            }
             console.log(JSON.stringify(data))
         }, function (err) {
-            $('.cameraOverlay').removeClass('loader');
-            $('#success-animation').attr('src', 'images/gf_24.gif')
-            console.log(JSON.stringify(err))
+            $('.loader').removeClass('show');
         })
 
     };
 
-    const player = document.getElementById('player');
 
     const constraints = {
         video: {
@@ -68,4 +72,6 @@ $(document).ready(function () {
             type: 'image/jpeg'
         });
     }
+
+
 });
