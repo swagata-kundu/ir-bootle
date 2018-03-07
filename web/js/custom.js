@@ -24,7 +24,7 @@ $(document).ready(function () {
         const data = new FormData();
         data.append('photo', blob);
         $('.loader').addClass('show');
-        axios.post('/api/image/recog', data).then(function (response) {
+        axios.post('https://websdk.affle.co/image/api/image/recog', data).then(function (response) {
             $('.loader').removeClass('show');
             let data = response.data;
             if (data.found) {
