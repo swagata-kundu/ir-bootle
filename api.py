@@ -1,4 +1,4 @@
-from flask import Flask, request, Response, send_from_directory, render_template
+from flask import Flask, request, Response, send_from_directory
 import jsonpickle
 import numpy as np
 import cv2
@@ -9,6 +9,7 @@ from werkzeug import secure_filename
 
 from match import Match
 from frame import Frame
+from exception import InvalidUsage
 
 # Initialize the Flask application
 app = Flask(__name__, static_url_path='')
@@ -31,8 +32,6 @@ def test():
     # cv2.imshow('image', img)
     # cv2.waitKey(0)
     # cv2.destroyAllWindows()
-
-    # do some fancy processing here....
 
     # build a response dict to send back to client
     response = {'message': 'image received. size={}x{}'.format(img.shape[1], img.shape[0])
@@ -73,12 +72,8 @@ def send_js_1(path):
 
 @app.route('/hello')
 def hello():
+    a = 1/0
     return Response('hello')
-
-
-@app.route('/web')
-def render_html():
-    return render_template('index.html')
 
 
 @app.route('/api/video', methods=['POST'])
@@ -94,8 +89,15 @@ def process_video():
     return Response(response=response_pickled, status=200, mimetype="application/json")
 
     # start flask app
+
+
+@app.errorhandler(Exception)
+def handle_error(error):
+    return Response(status=500, mimetype="application/json")
+
+
 app.config['UPLOAD_FOLDER'] = 'uploads'
 
-#app.run(host="0.0.0.0", port=5000, ssl_context=('cert.pem', 'key.pem'))
+# app.run(host="0.0.0.0", port=5000, ssl_context=('cert.pem', 'key.pem'))
 
 app.run(host="0.0.0.0", port=5000)

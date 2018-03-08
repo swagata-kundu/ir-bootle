@@ -25,14 +25,19 @@ $(document).ready(function () {
         data.append('photo', blob);
         $('.loader').addClass('show');
         axios.post('https://websdk.affle.co/image/api/image/recog', data).then(function (response) {
-            $('.loader').removeClass('show');
             let data = response.data;
             if (data.found) {
                 $('#success-animation').attr('src', 'images/sprite_24.gif')
+                $("#success-animation").one("load", function () {
+                    $('.loader').removeClass('show');
+                }).each(function () {
+                    if (this.complete) $(this).load();
+                });
                 setTimeout(function () {
                     window.location.assign('https://www.sprite.com')
                 }, 15000)
             } else {
+                $('.loader').removeClass('show');
                 alert('Can not recognize the image. Please try again')
             }
             console.log(JSON.stringify(data))
