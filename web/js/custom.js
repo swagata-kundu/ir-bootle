@@ -26,6 +26,7 @@ $(document).ready(function () {
         $('.loader').addClass('show');
         axios.post('https://websdk.affle.co/image/api/image/recog', data).then(function (response) {
             let data = response.data;
+            alert(JSON.stringify(data));
             if (data.found) {
                 $('#success-animation').attr('src', 'images/sprite_24.gif')
                 $("#success-animation").one("load", function () {

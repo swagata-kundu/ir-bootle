@@ -72,7 +72,6 @@ def send_js_1(path):
 
 @app.route('/hello')
 def hello():
-    a = 1/0
     return Response('hello')
 
 
