@@ -34,9 +34,9 @@ class Match:
 
     def match_image(self, image_to_find):
 
-        # cv2.imshow('image', image_to_find)
-        # cv2.waitKey(0)
-        # cv2.destroyAllWindows()
+        cv2.imshow('image', image_to_find)
+        cv2.waitKey(0)
+        cv2.destroyAllWindows()
 
         # image_to_find_resized_scaled = cv2.resize(
         #     image_to_find, (0, 0), fx=0.5, fy=0.5)
@@ -66,7 +66,7 @@ class Match:
             obj['file_name'] = ref_image['file_name']
             obj['score'] = len(good)
 
-            if len(good) > 8:
+            if len(good) >= 10:
                 results.append(obj)
 
         sorted_result = sorted(results, key=itemgetter('score'), reverse=True)
