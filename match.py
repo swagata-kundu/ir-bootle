@@ -77,7 +77,7 @@ class Match:
 
         if len(sorted_result) > 0:
             match_result['found'] = True
-            match_result['file'] = os.path.basename(
-                sorted_result[0]['file_name'])
+            match_result['file'] = os.path.splitext(os.path.basename(
+                sorted_result[0]['file_name']))[0]
 
         return match_result
